@@ -34,7 +34,7 @@ pip install -r requirements.txt
 
 # Usage 🚀
 ```py
-usage: git_regex_searcher_local.py [-h] -d DIRECTORY -p PATTERN [-e EXTENSION]
+usage: SearchStorm.py [-h] -d DIRECTORY -p PATTERN [-e EXTENSION]
 
 Search for pattern in files recursively
 
@@ -52,13 +52,13 @@ options:
 ![](images/image2.png)
 
 ```bash
-python local_search.py -d /path/to/directory -p pattern [-e file_extension]
+python SearchStorm.py -d /path/to/directory -p pattern [-e file_extension]
 ```
 
 **Example**:
 
 ```bash
-python3 git_regex_searcher_local.py -d ~/Desktop/practice/web3/CTFS/ethernaut/CoinFlip -p "brownie" -e ".py"
+python3 SearchStorm.py -d ~/Desktop/practice/web3/CTFS/ethernaut/CoinFlip -p "brownie" -e ".py"
 ```
 
 ![](images/image.png)
