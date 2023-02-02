@@ -1,4 +1,4 @@
-# Pattern Search Utility Using Regex 🔍
+# SearchStorm 🔍🌪️
 
 > Saikat Karmakar | 1 Feb : 2023
 
@@ -63,10 +63,24 @@ python3 git_regex_searcher_local.py -d ~/Desktop/practice/web3/CTFS/ethernaut/Co
 
 
 ## Import as a Module in other program
+```py
+#!/usr/bin/python3
+import sys
+sys.path.append("<path of the repo>")
+from SearchStorm import search_files, _print
 
+patterns = ["brownie", "web3"]
+
+def main(directory, ext=".sol"):
+	for i in range(len(patterns)):
+        #print(patterns[i])
+        _print(search_files(directory, patterns[i], ext), patterns[i])
+
+main("~/Desktop/practice/web3/CTFS/ethernaut/CoinFlip", ".py")
+```
 
 # Contributing 🤝
-Contributions, issues and feature requests are welcome. Feel free to check the [issues page](https://github.com/aviksaikat/repo/issues) if you want to contribute.
+Contributions, issues and feature requests are welcome. Feel free to check the [issues page](https://github.com/Aviksaikat/SearchStorm-/issues) if you want to contribute.
 
 
 # Show your support 💖
