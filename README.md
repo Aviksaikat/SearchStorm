@@ -4,6 +4,8 @@
 
 ---
 
+![](images/untitled.png)
+
 This script allows you to search for a specific pattern in files recursively. You can specify a directory to search in and the pattern to look for. By default, the script will search for the pattern in all files. You can also specify a file extension to limit the search to a specific file type. The output displays the line number, line content, and file name where the pattern was found.
 
 # Features 🚀
