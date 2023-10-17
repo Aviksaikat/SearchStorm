@@ -1,5 +1,3 @@
-from .SearchStorm import search_files
-from .SearchStorm import print_result
-from .SearchStorm import _print
+from .SearchStorm import _print, print_result, search_files
 
 __all__ = ["search_files", "print_result", "_print"]
