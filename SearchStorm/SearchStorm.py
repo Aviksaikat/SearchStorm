@@ -43,8 +43,9 @@ def print_result(result, pattern):
 	print(table)
 
 def is_pattern_escaped(pattern):
+	#print(pattern)
 	for i in range(len(pattern)):
-		if pattern[i] in '.*+?{}[]()|^$\\':
+		if pattern[i] in '\\.\\*\\+\\?\\{\\}\\[\\]\\(\\)\\|\\^\\$\\':
 			if i == 0 or pattern[i-1] != '\\':
 				return False
 	return True
@@ -61,7 +62,7 @@ def search_file(file_path, pattern, original_pattern):
 				result.append((i, line.strip(), file_path, original_pattern))
 	return result
 
-def search_files(directory, pattern, file_extension):
+def search_files(directory, pattern, file_extension, scope_file=None):
 	result = []
 	
 	# for output
@@ -69,9 +70,17 @@ def search_files(directory, pattern, file_extension):
 	pattern = escape_regex_special_chars(pattern) if is_pattern_escaped(pattern) else pattern
 	#print(pattern)
 	pattern = re.compile(pattern, re.IGNORECASE)
+
+	files_to_search = []
+	if scope_file:
+		with open(scope_file) as f:
+			files_to_search = [line.strip() for line in f]
+	else:
+		for root, dir, files in os.walk(directory):
+			files_to_search.extend([os.path.join(root, f) for f in files if f.endswith(file_extension)])
 	
 	with concurrent.futures.ThreadPoolExecutor() as executor:
-		future_to_file = {executor.submit(search_file, os.path.join(root, file), pattern, original_pattern): os.path.join(root, file) for root, dir, files in os.walk(directory) for file in files if file.endswith(file_extension)}
+		future_to_file = {executor.submit(search_file, f, pattern, original_pattern): f for f in files_to_search}
 		for future in concurrent.futures.as_completed(future_to_file):
 			file = future_to_file[future]
 			try:
