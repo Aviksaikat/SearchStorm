@@ -78,7 +78,6 @@ def search_file(file_path, pattern, original_pattern):
 def search_files(directory, pattern, file_extension, scope_file=None):
     result = []
 
-    # for output
     original_pattern = pattern
     pattern = (
         escape_regex_special_chars(pattern) if is_pattern_escaped(pattern) else pattern
