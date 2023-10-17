@@ -1,6 +1,5 @@
 import argparse
 import concurrent.futures
-import glob
 import os
 import re
 
@@ -96,19 +95,6 @@ def search_files(directory, pattern, file_extension, scope_file=None):
             files_to_search.extend(
                 [os.path.join(root, f) for f in files if f.endswith(file_extension)]
             )
-
-    # Expand glob patterns
-    expanded_files = []
-    for filepath in files_to_search:
-        if "*" in filepath or "?" in filepath:
-            # Use glob to expand the pattern
-            expanded = glob.glob(os.path.join(base_dir, filepath))
-            expanded_files.extend(expanded)
-        else:
-            expanded_files.append(os.path.join(base_dir, filepath))
-
-    # Use the expanded files for search
-    files_to_search = expanded_files
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         future_to_file = {
