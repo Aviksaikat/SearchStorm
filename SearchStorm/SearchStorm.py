@@ -44,7 +44,7 @@ def print_result(result, pattern):
         [match[3], match[0], highlight_pattern(match[1], pattern), match[2]]
         for match in result
     ]
-    # print(data)
+    # print(result[0][1])
 
     table = columnar(
         data, headers, patterns=patterns, justify="c", wrap_max=5, max_column_width=None
