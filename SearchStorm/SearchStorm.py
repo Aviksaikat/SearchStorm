@@ -82,8 +82,9 @@ def search_files(directory, pattern, file_extension, scope_file=None):
     pattern = (
         escape_regex_special_chars(pattern) if is_pattern_escaped(pattern) else pattern
     )
-    # print(pattern)
+    #print("Pattern------>", pattern)
     pattern = re.compile(pattern, re.IGNORECASE)
+    # print("Pattern------>", pattern)
 
     files_to_search = []
     if scope_file:
@@ -95,7 +96,7 @@ def search_files(directory, pattern, file_extension, scope_file=None):
                 [os.path.join(root, f) for f in files if f.endswith(file_extension)]
             )
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ProcessPoolExecutor(max_workers=15) as executor:
         future_to_file = {
             executor.submit(search_file, f, pattern, original_pattern): f
             for f in files_to_search
@@ -103,7 +104,7 @@ def search_files(directory, pattern, file_extension, scope_file=None):
         for future in concurrent.futures.as_completed(future_to_file):
             file = future_to_file[future]
             try:
-                result.extend(future.result())
+                result.extend(future.result(timeout=20))
             except Exception as e:
                 print(f"Error processing file {file}: {e}")
     return result
